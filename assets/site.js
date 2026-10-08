@@ -12,7 +12,15 @@ menuButton?.addEventListener('click', () => setMenu(!body.classList.contains('me
 menu?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setMenu(false)));
 document.addEventListener('keydown', (event) => event.key === 'Escape' && setMenu(false));
 
-const updateHeader = () => header?.classList.toggle('is-scrolled', window.scrollY > 24);
+let lastScrollY = window.scrollY;
+const updateHeader = () => {
+  if (!header) return;
+  const currentScrollY = window.scrollY;
+  header.classList.toggle('is-scrolled', currentScrollY > 24);
+  const scrollingDown = currentScrollY > lastScrollY && currentScrollY > 120;
+  header.classList.toggle('is-hidden', scrollingDown && !body.classList.contains('menu-open'));
+  lastScrollY = currentScrollY;
+};
 updateHeader();
 window.addEventListener('scroll', updateHeader, { passive: true });
 
