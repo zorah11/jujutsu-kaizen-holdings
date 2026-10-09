@@ -231,7 +231,7 @@ textarea { min-height: 140px; resize: vertical; }
   .hero-content > div:first-child .eyebrow::before { order: 0; }
   .hero h1 { margin-right: auto; max-width: 7.2ch; }
   .hero-media img { animation-duration: 11s; }
-  .hero-side { width: 66%; max-width: 15.5rem; margin-left: auto; margin-right: 0; padding: .85rem; background: rgba(12,38,31,.52); box-shadow: none; backdrop-filter: blur(9px); -webkit-backdrop-filter: blur(9px); }
+  .hero-side { width: 66%; max-width: 15.5rem; margin-left: 0; margin-right: auto; padding: .85rem; background: rgba(12,38,31,.52); box-shadow: none; backdrop-filter: blur(9px); -webkit-backdrop-filter: blur(9px); }
   .hero-side p { font-size: .8rem; line-height: 1.45; }
   .hero-copy-full { display: none; }
   .hero-copy-mobile { display: inline; }
