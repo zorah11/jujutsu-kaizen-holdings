@@ -74,8 +74,11 @@ const getEnquiry = () => {
 contactForm?.addEventListener('submit', (event) => {
   event.preventDefault();
   if (!contactForm.reportValidity()) return;
+  const data = new FormData(contactForm);
+  const subject = `Website enquiry: ${data.get('interest') || 'General Enquiry'}`;
+  window.location.href = `mailto:jujutsukaisenholding@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(getEnquiry())}`;
   formStatus.hidden = false;
-  formStatus.textContent = 'Your enquiry is ready to copy. No message has been sent.';
+  formStatus.textContent = 'Your email application should open with the enquiry ready to send. If it does not, copy the enquiry below.';
   copyButton.hidden = false;
 });
 

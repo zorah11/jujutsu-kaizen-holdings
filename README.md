@@ -25,11 +25,9 @@ npx serve dist
 - The site uses exactly three generated images in `dist/assets/`.
 - Each HTML page contains its own page copy and metadata.
 
-## Contact form setup
+## Contact form
 
-The current form validates input and prepares a copyable enquiry. It deliberately does not claim to submit because no approved public email address or backend was supplied.
-
-Once the client approves a public contact address, connect the form to an email/form service or update the submit handler in `dist/assets/site.js` to open an email-client draft. Never insert private registration-document contact details without approval.
+The form validates input and opens an email draft addressed to the company's public email. A copy button remains available as a fallback.
 
 ## Deployment
 
@@ -37,8 +35,6 @@ The output is plain static HTML and can be hosted from `dist/`. For GitHub Pages
 
 ## Client information still needed
 
-- Approved public email address
-- Approved public telephone/WhatsApp number, if any
 - Confirmation of currently operational travel and hospitality services
 - Confirmed destinations, packages, vehicles, accommodation or partnerships, if any
 - Confirmation of which wider business sectors are active
