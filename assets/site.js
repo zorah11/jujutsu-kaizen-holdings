@@ -2,15 +2,39 @@ const body = document.body;
 const header = document.querySelector('[data-header]');
 const menuButton = document.querySelector('[data-menu-button]');
 const menu = document.querySelector('[data-menu]');
+const pageContent = document.querySelectorAll('main, .site-footer');
 
 const setMenu = (open) => {
   body.classList.toggle('menu-open', open);
+  document.documentElement.classList.toggle('menu-open', open);
   menuButton?.setAttribute('aria-expanded', String(open));
+  menuButton?.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+  pageContent.forEach((element) => { element.inert = open; });
+  if (open) {
+    header?.classList.remove('is-hidden');
+    menu?.querySelector('a')?.focus({ preventScroll: true });
+  }
 };
 
 menuButton?.addEventListener('click', () => setMenu(!body.classList.contains('menu-open')));
 menu?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setMenu(false)));
-document.addEventListener('keydown', (event) => event.key === 'Escape' && setMenu(false));
+document.addEventListener('keydown', (event) => {
+  if (!body.classList.contains('menu-open')) return;
+  if (event.key === 'Escape') {
+    setMenu(false);
+    menuButton?.focus({ preventScroll: true });
+  }
+  if (event.key === 'Tab') {
+    const controls = [...header.querySelectorAll('a, button')].filter((element) => element.getClientRects().length);
+    const first = controls[0];
+    const last = controls[controls.length - 1];
+    if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus(); }
+    else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
+  }
+});
+matchMedia('(max-width: 980px)').addEventListener('change', (event) => {
+  if (!event.matches) setMenu(false);
+});
 
 let lastScrollY = window.scrollY;
 const updateHeader = () => {
@@ -51,7 +75,7 @@ contactForm?.addEventListener('submit', (event) => {
   event.preventDefault();
   if (!contactForm.reportValidity()) return;
   formStatus.hidden = false;
-  formStatus.textContent = 'Your enquiry is ready. The company’s public email is awaiting approval, so nothing has been sent. Copy your enquiry below and share it through an approved contact channel.';
+  formStatus.textContent = 'Your enquiry is ready to copy. No message has been sent.';
   copyButton.hidden = false;
 });
 
